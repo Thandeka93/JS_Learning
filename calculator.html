@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <table border="1">
+        <tr>
+            <td colspan="4">
+                <input type="text" id="inputBox" value="0"/>
+                </td>
+        </tr>
+        <tr>
+            <td onclick="digitBtnPressed(7)">7</td>
+            <td onclick="digitBtnPressed(8)">8</td>
+            <td onclick="digitBtnPressed(9)">9</td>
+            <td onclick="operatorBtnPressed('*')">x</td>
+        </tr>
+        <tr>
+            <td onclick="digitBtnPressed(4)">4</td>
+            <td onclick="digitBtnPressed(5)">5</td>
+            <td onclick="digitBtnPressed(6)">6</td>
+            <td onclick="operatorBtnPressed('-')">-</td>
+        </tr>
+        <tr>
+            <td onclick="digitBtnPressed(1)">1</td>
+            <td onclick="digitBtnPressed(2)">2</td>
+            <td onclick="digitBtnPressed(3)">3</td>
+            <td onclick="operatorBtnPressed('+')">+</td>
+        </tr>
+        <tr>
+            <td colspan="2" onclick="digitBtnPressed(0)">0</td>
+            <td onclick="btnACPressed()">AC</td>
+            <td onclick="operatorBtnPressed('/')">/</td>
+        </tr>
+        <tr>
+            <td colspan="4" onclick="equalBtnPressed()">=</td>
+        </tr>
+    </table>
+
+    <script>
+        // This variable helps control whether the next digit pressed should start a new input line
+        var newLine = true;
+        var value1;
+        var currentOperator;
+
+
+        // This function is called when a digit button is pressed.
+        function digitBtnPressed(button){
+
+            if (newLine){
+                document.getElementById("inputBox").value = button;
+                newLine = false;
+            } else {
+                var currentValue = document.getElementById("inputBox").value;
+         document.getElementById("inputBox").value = currentValue + button;
+            }
+
+        }
+        // This function is called when AC button is pressed.
+        function btnACPressed (){
+            document.getElementById("inputBox").value = 0;
+            newLine = true;
+        }
+        // This function is called when operators are pressed.
+        function operatorBtnPressed (operator){
+            currentOperator = operator;
+            value1 = parseInt(document.getElementById ("inputBox").value);
+            newLine = true;
+
+        }
+
+        // This function is called when = button is pressed.
+        function equalBtnPressed (){
+            var value2 = parseInt(document.getElementById("inputBox").value);
+            var finalTotal;
+
+            switch(currentOperator){
+                case "+":
+                    finalTotal = value1 + value2;
+                    break;
+                    case "-":
+                    finalTotal = value1 - value2;
+                    break;
+                    case "*":
+                    finalTotal = value1 * value2;
+                    break;
+                    case "/":
+                    finalTotal = value1 / value2;
+                    break;
+            }
+            document.getElementById("inputBox").value = finalTotal;
+            value1 =0;
+            newLine = true;
+        }
+
+
+
+    </script>
+
+</body>
+</html>
